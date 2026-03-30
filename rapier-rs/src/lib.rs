@@ -1,9 +1,6 @@
-use lazy_static::lazy_static;
 use nalgebra::UnitQuaternion;
 use rapier3d::prelude::*;
 use std::collections::HashMap;
-use std::sync::atomic::{AtomicUsize, Ordering};
-use std::sync::Mutex;
 use wolfram_library_link as wll;
 use wolfram_library_link::NumericArray;
 
@@ -67,12 +64,12 @@ thread_local! {
 }
 
 #[wll::export]
-fn RapierVersion() -> String {
+fn rapier_version() -> String {
     "0.23.0".to_string()
 }
 
 #[wll::export]
-fn RapierCuboidMass(hx: f64, hy: f64, hz: f64, density: f64) -> f64 {
+fn rapier_cuboid_mass(hx: f64, hy: f64, hz: f64, density: f64) -> f64 {
     let collider = ColliderBuilder::cuboid(hx as f32, hy as f32, hz as f32)
         .density(density as f32)
         .build();
@@ -80,7 +77,7 @@ fn RapierCuboidMass(hx: f64, hy: f64, hz: f64, density: f64) -> f64 {
 }
 
 #[wll::export]
-fn RapierWorldCreate(gx: f64, gy: f64, gz: f64) -> i64 {
+fn rapier_world_create(gx: f64, gy: f64, gz: f64) -> i64 {
     let id = NEXT_WORLD_ID.with(|next| {
         let current = next.get();
         next.set(current + 1);
@@ -94,14 +91,14 @@ fn RapierWorldCreate(gx: f64, gy: f64, gz: f64) -> i64 {
 }
 
 #[wll::export]
-fn RapierWorldDestroy(world_id: i64) -> bool {
+fn rapier_world_destroy(world_id: i64) -> bool {
     WORLDS.with(|worlds| {
         worlds.borrow_mut().remove(&(world_id as usize)).is_some()
     })
 }
 
 #[wll::export]
-fn RapierAddRigidBody(
+fn rapier_add_rigid_body(
     world_id: i64,
     x: f64, y: f64, z: f64,
     qx: f64, qy: f64, qz: f64, qw: f64,
@@ -139,7 +136,7 @@ fn RapierAddRigidBody(
 }
 
 #[wll::export]
-fn RapierAddColliderCuboid(
+fn rapier_add_collider_cuboid(
     world_id: i64,
     body_handle_raw: i64,
     hx: f64, hy: f64, hz: f64,
@@ -171,7 +168,7 @@ fn RapierAddColliderCuboid(
 }
 
 #[wll::export]
-fn RapierAddColliderSphere(
+fn rapier_add_collider_sphere(
     world_id: i64,
     body_handle_raw: i64,
     radius: f64,
@@ -203,7 +200,7 @@ fn RapierAddColliderSphere(
 }
 
 #[wll::export]
-fn RapierWorldStep(world_id: i64, steps: i64, time_step: f64) {
+fn rapier_world_step(world_id: i64, steps: i64, time_step: f64) {
     WORLDS.with(|w| {
         let mut worlds = w.borrow_mut();
         if let Some(world) = worlds.get_mut(&(world_id as usize)) {
@@ -216,7 +213,7 @@ fn RapierWorldStep(world_id: i64, steps: i64, time_step: f64) {
 
 // Returns a Tensor of shape {N*8} => flat [BodyHandleRaw, X, Y, Z, QX, QY, QZ, QW]
 #[wll::export]
-fn RapierGetBodyPositions(world_id: i64) -> NumericArray<f64> {
+fn rapier_get_body_positions(world_id: i64) -> NumericArray<f64> {
     WORLDS.with(|w| {
         let worlds = w.borrow();
         if let Some(world) = worlds.get(&(world_id as usize)) {

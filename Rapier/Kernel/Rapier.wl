@@ -34,16 +34,16 @@ loadRapierLibrary[] := Module[{libPath},
 $rapierLib = loadRapierLibrary[];
 
 If[$rapierLib =!= $Failed,
-  $iRapierVersion = LibraryFunctionLoad[$rapierLib, "RapierVersion", {}, "UTF8String"];
-  $iRapierCuboidMass = LibraryFunctionLoad[$rapierLib, "RapierCuboidMass", {Real, Real, Real, Real}, Real];
+  $iRapierVersion = LibraryFunctionLoad[$rapierLib, "rapier_version", {}, "UTF8String"];
+  $iRapierCuboidMass = LibraryFunctionLoad[$rapierLib, "rapier_cuboid_mass", {Real, Real, Real, Real}, Real];
   
-  $iRapierWorldCreate = Echo @ LibraryFunctionLoad[$rapierLib, "RapierWorldCreate", {Real, Real, Real}, Integer];
-  $iRapierWorldDestroy = Echo @ LibraryFunctionLoad[$rapierLib, "RapierWorldDestroy", {Integer}, "Boolean"];
-  $iRapierAddRigidBody = Echo @ LibraryFunctionLoad[$rapierLib, "RapierAddRigidBody", {Integer, Real, Real, Real, Real, Real, Real, Real, Integer}, Integer];
-  $iRapierAddColliderCuboid = Echo @ LibraryFunctionLoad[$rapierLib, "RapierAddColliderCuboid", {Integer, Integer, Real, Real, Real, Real}, Integer];
-  $iRapierAddColliderSphere = Echo @ LibraryFunctionLoad[$rapierLib, "RapierAddColliderSphere", {Integer, Integer, Real, Real}, Integer];
-  $iRapierWorldStep = Echo @ LibraryFunctionLoad[$rapierLib, "RapierWorldStep", {Integer, Integer, Real}, "Void"];
-  $iRapierGetBodyPositions = Echo @ LibraryFunctionLoad[$rapierLib, "RapierGetBodyPositions", {Integer}, {Real, 1}];
+  $iRapierWorldCreate = Echo @ LibraryFunctionLoad[$rapierLib, "rapier_world_create", {Real, Real, Real}, Integer];
+  $iRapierWorldDestroy = Echo @ LibraryFunctionLoad[$rapierLib, "rapier_world_destroy", {Integer}, "Boolean"];
+  $iRapierAddRigidBody = Echo @ LibraryFunctionLoad[$rapierLib, "rapier_add_rigid_body", {Integer, Real, Real, Real, Real, Real, Real, Real, Integer}, Integer];
+  $iRapierAddColliderCuboid = Echo @ LibraryFunctionLoad[$rapierLib, "rapier_add_collider_cuboid", {Integer, Integer, Real, Real, Real, Real}, Integer];
+  $iRapierAddColliderSphere = Echo @ LibraryFunctionLoad[$rapierLib, "rapier_add_collider_sphere", {Integer, Integer, Real, Real}, Integer];
+  $iRapierWorldStep = Echo @ LibraryFunctionLoad[$rapierLib, "rapier_world_step", {Integer, Integer, Real}, "Void"];
+  $iRapierGetBodyPositions = Echo @ LibraryFunctionLoad[$rapierLib, "rapier_get_body_positions", {Integer}, {Real, 1}];
 
   RapierVersion[] := $iRapierVersion[];
   RapierCuboidMass[hx_?NumericQ, hy_?NumericQ, hz_?NumericQ, density_?NumericQ] := 
