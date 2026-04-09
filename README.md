@@ -18,72 +18,87 @@ Ensure you have Rust/Cargo installed, as well as the Wolfram Engine or Mathemati
    ./scripts/build.wls
    ```
 
-## Usage Example
+## Usage Example (Cuboids + Spheres + Cylinders)
 
-Load the paclet directly in a Wolfram Notebook from your local directory:
+Load the paclet from a local checkout:
 
 ```wl
-PacletDirectoryLoad[FileNameJoin[{NotebookDirectory[], "Rapier"}]]
-Needs["Rapier`"]
+PacletDirectoryLoad[FileNameJoin[{NotebookDirectory[], "Rapier"}]];
+Needs["Rapier`"];
 ```
 
-### Bouncing Sphere Setup
+Create a world with gravity:
 
-Create a new world with gravity pointing downwards:
 ```wl
-(* Gravity pointing down on Z *)
 worldId = RapierWorldCreate[{0.0, 0.0, -9.81}];
 ```
 
-Add a static ground plane (Cuboid with `10x10x1` half-extents at `Z=-1`):
+Add fixed objects (a floor cuboid and a fixed sphere obstacle):
+
 ```wl
 floorId = RapierAddRigidBody[worldId, {0.0, 0.0, -1.0}, "Fixed"];
-RapierAddColliderCuboid[worldId, floorId, {10.0, 10.0, 1.0}, 1.0];
+RapierAddColliderCuboid[worldId, floorId, {8.0, 8.0, 1.0}, 1.0];
+
+fixedSphereId = RapierAddRigidBody[worldId, {2.0, 0.0, 0.8}, "Fixed"];
+RapierAddColliderSphere[worldId, fixedSphereId, 0.8, 1.0];
 ```
 
-Add a dynamic sphere falling from `Z = 5.0`:
+Add dynamic objects (a cuboid, a sphere, and a cylinder):
+
 ```wl
-ballId = RapierAddRigidBody[worldId, {0.0, 0.0, 5.0}, "Dynamic"];
-RapierAddColliderSphere[worldId, ballId, 0.5, 1.0];
+dynCuboidId = RapierAddRigidBody[worldId, {-1.5, 0.0, 4.5}, "Dynamic"];
+RapierAddColliderCuboid[worldId, dynCuboidId, {0.5, 0.5, 0.5}, 1.0];
+
+dynSphereId = RapierAddRigidBody[worldId, {0.0, 0.0, 6.0}, "Dynamic"];
+RapierAddColliderSphere[worldId, dynSphereId, 0.5, 1.0];
+
+dynCylinderId = RapierAddRigidBody[worldId, {1.5, 0.0, 5.2}, "Dynamic"];
+RapierAddColliderCylinder[worldId, dynCylinderId, {0.6, 0.35}, 1.0];
 ```
 
-### Simulation & Visualization Loop
-
-You can use `RapierWorldStep` continuously and retrieve `RapierGetBodyPositions` for mapping to interactive Wolfram structures.
-
-Let's cache 200 simulation frames at 60 FPS:
+Step the simulation and capture body transforms:
 
 ```wl
+dt = 1.0/60.0;
+steps = 240;
+
 frames = Table[
-  RapierWorldStep[worldId, 1, 1.0 / 60.0];
+  RapierWorldStep[worldId, 1, dt];
   RapierGetBodyPositions[worldId],
-  {200}
+  {steps}
 ];
 ```
 
-Now securely animate the state history we extracted!
-Note that the returned raw matrix separates bodies by their Handle Index mapping. The Floor is index `1`, the Sphere is index `2`, and columns `2;;4` represent the absolute `X, Y, Z` coordinates!
+Visualize by mapping each body handle to its current position (columns `2;;4`):
 
 ```wl
+handleToPos[mat_] := Association @ Map[(#[[1]] -> #[[2 ;; 4]]) &, mat];
+
 ListAnimate[
   Table[
-    Graphics3D[{
-      (* Visualization for Floor Bounds *)
-      Gray, Cuboid[{-10, -10, -2}, {10, 10, 0}],
-      (* Translate Sphere object into dynamic coordinates logged at this step *)
-      Red,
-      Translate[Sphere[{0,0,0}, 0.5], pos[[2, 2;;4]]]
-    }, 
-    PlotRange -> {{-5, 5}, {-5, 5}, {-2, 6}},
-    Axes -> True],
-    {pos, frames}
+    Module[{p = handleToPos[frame]},
+      Graphics3D[
+        {
+          Gray, Translate[Cuboid[{-8, -8, -1}, {8, 8, 1}], p[floorId]],
+          Darker@Blue, Translate[Sphere[{0, 0, 0}, 0.8], p[fixedSphereId]],
+
+          Orange, Translate[Cuboid[{-0.5, -0.5, -0.5}, {0.5, 0.5, 0.5}], p[dynCuboidId]],
+          Red, Translate[Sphere[{0, 0, 0}, 0.5], p[dynSphereId]],
+          Purple, Translate[Cylinder[{{0, 0, -0.6}, {0, 0, 0.6}}, 0.35], p[dynCylinderId]]
+        },
+        PlotRange -> {{-6, 6}, {-6, 6}, {-2, 8}},
+        Axes -> True,
+        Boxed -> True
+      ]
+    ],
+    {frame, frames}
   ],
   AnimationRate -> 60
 ]
 ```
 
-### Cleanup
-To prevent memory leaks over time during notebook restarts or heavy loads, properly destroy the simulation state when you are finished computing:
+Cleanup:
+
 ```wl
 RapierWorldDestroy[worldId]
 ```
