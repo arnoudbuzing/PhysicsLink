@@ -10,10 +10,17 @@ RapierAddColliderSphere::usage = "RapierAddColliderSphere[world_id, body_id, rad
 RapierAddColliderCylinder::usage = "RapierAddColliderCylinder[world_id, body_id, {halfHeight, radius}, density] adds a cylindrical collider attached to the body.";
 RapierAddColliderCone::usage = "RapierAddColliderCone[world_id, body_id, {halfHeight, radius}, density] adds a conical collider attached to the body.";
 RapierAddColliderCapsule::usage = "RapierAddColliderCapsule[world_id, body_id, {halfHeight, radius}, density] adds a capsule collider attached to the body.";
+QuaternionToTransformation::usage = "QuaternionToTransformation[{qx, qy, qz, qw}] converts a quaternion to a 3x3 rotation matrix.";
 RapierWorldStep::usage = "RapierWorldStep[world_id, steps, dt] advances the simulation.";
 RapierGetBodyPositions::usage = "RapierGetBodyPositions[world_id] returns all body positions and rotations as a matrix.";
 
 Begin["`Private`"];
+
+QuaternionToTransformation[{qx_?NumericQ, qy_?NumericQ, qz_?NumericQ, qw_?NumericQ}] := {
+  {1 - 2 (qy^2 + qz^2), 2 (qx qy - qw qz), 2 (qx qz + qw qy)},
+  {2 (qx qy + qw qz), 1 - 2 (qx^2 + qz^2), 2 (qy qz - qw qx)},
+  {2 (qx qz - qw qy), 2 (qy qz + qw qx), 1 - 2 (qx^2 + qy^2)}
+};
 
 (* --- Library Loading logic --- *)
 

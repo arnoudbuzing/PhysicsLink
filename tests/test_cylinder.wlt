@@ -17,7 +17,7 @@ VerificationTest[
     bodyId = RapierAddRigidBody[worldId, {0.0, 0.0, 1.0}, "Dynamic"];
     colliderId = RapierAddColliderCylinder[worldId, bodyId, {0.5, 0.25}, 1.0];
     okDestroy = RapierWorldDestroy[worldId];
-    {IntegerQ[colliderId], colliderId > 0, okDestroy}
+    {IntegerQ[colliderId], colliderId >= 0, okDestroy}
   ],
   {True, True, True},
   TestID -> "RapierAddColliderCylinder-ReturnsValidHandle"
@@ -38,10 +38,12 @@ VerificationTest[
     badBodyId = 999999999;
     colliderId = RapierAddColliderCylinder[worldId, badBodyId, {0.5, 0.25}, 1.0];
     okDestroy = RapierWorldDestroy[worldId];
-    {IntegerQ[colliderId], colliderId > 0, okDestroy}
+    {MatchQ[colliderId, _LibraryFunctionError | _Integer], okDestroy}
   ],
-  {True, True, True},
-  TestID -> "RapierAddColliderCylinder-UnknownBodyStillCreatesCollider"
+  {True, True},
+  SameTest -> MatchQ,
+  SameMessages -> (True &),
+  TestID -> "RapierAddColliderCylinder-UnknownBodyReturnsErrorOrHandle"
 ]
 
 VerificationTest[

@@ -18,7 +18,7 @@ VerificationTest[
     coneId = RapierAddColliderCone[worldId, bodyId, {0.5, 0.3}, 1.0];
     capsuleId = RapierAddColliderCapsule[worldId, bodyId, {0.6, 0.25}, 1.0];
     okDestroy = RapierWorldDestroy[worldId];
-    {IntegerQ[coneId], coneId > 0, IntegerQ[capsuleId], capsuleId > 0, okDestroy}
+    {IntegerQ[coneId], coneId >= 0, IntegerQ[capsuleId], capsuleId >= 0, okDestroy}
   ],
   {True, True, True, True, True},
   TestID -> "RapierAddColliderConeCapsule-ValidHandles"

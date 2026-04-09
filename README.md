@@ -78,13 +78,7 @@ frames = Table[
 Visualize using full rigid transforms (translation + rotation) with `GeometricTransformation`:
 
 ```wl
-quatToMatrix[{qx_, qy_, qz_, qw_}] := {
-  {1 - 2 (qy^2 + qz^2), 2 (qx qy - qw qz), 2 (qx qz + qw qy)},
-  {2 (qx qy + qw qz), 1 - 2 (qx^2 + qz^2), 2 (qy qz - qw qx)},
-  {2 (qx qz - qw qy), 2 (qy qz + qw qx), 1 - 2 (qx^2 + qy^2)}
-};
-
-rowToTransform[row_] := {quatToMatrix[row[[5 ;; 8]]], row[[2 ;; 4]]};
+rowToTransform[row_] := {QuaternionToTransformation[row[[5 ;; 8]]], row[[2 ;; 4]]};
 
 handleToTransform[mat_] := Association @ Map[(#[[1]] -> rowToTransform[#]) &, mat];
 
