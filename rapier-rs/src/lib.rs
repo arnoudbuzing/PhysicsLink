@@ -244,20 +244,17 @@ fn rapier_world_step(world_id: i64, steps: i64, time_step: f64) {
     });
 }
 
-// Returns a Tensor of shape {N*8} => flat [BodyHandleRaw, X, Y, Z, QX, QY, QZ, QW]
+// Returns a flat f64 tensor of shape {N*7} => [X, Y, Z, QX, QY, QZ, QW]
 #[wll::export]
 fn rapier_get_body_positions(world_id: i64) -> NumericArray<f64> {
     WORLDS.with(|w| {
         let worlds = w.borrow();
         if let Some(world) = worlds.get(&(world_id as usize)) {
             let count = world.rigid_body_set.len();
-            let mut flat = Vec::with_capacity(count * 8);
-            for (handle, rb) in world.rigid_body_set.iter() {
-                let (index, gen) = handle.into_raw_parts();
-                let handle_raw = ((index as i64) << 32) | (gen as i64);
+            let mut flat = Vec::with_capacity(count * 7);
+            for (_handle, rb) in world.rigid_body_set.iter() {
                 let trans = rb.translation();
                 let rot = rb.rotation();
-                flat.push(handle_raw as f64);
                 flat.push(trans.x as f64);
                 flat.push(trans.y as f64);
                 flat.push(trans.z as f64);
@@ -267,6 +264,26 @@ fn rapier_get_body_positions(world_id: i64) -> NumericArray<f64> {
                 flat.push(rot.w as f64);
             }
             return NumericArray::from_slice(&flat);
+        }
+        NumericArray::from_slice(&[])
+    })
+}
+
+// Returns a flat i64 tensor of shape {N} => [BodyHandleRaw]
+#[wll::export]
+fn rapier_get_body_handles(world_id: i64) -> NumericArray<i64> {
+    WORLDS.with(|w| {
+        let worlds = w.borrow();
+        if let Some(world) = worlds.get(&(world_id as usize)) {
+            let count = world.rigid_body_set.len();
+            let mut handles = Vec::with_capacity(count);
+            for (handle, rb) in world.rigid_body_set.iter() {
+                let (index, gen) = handle.into_raw_parts();
+                let handle_raw = ((index as i64) << 32) | (gen as i64);
+                let _ = rb;
+                handles.push(handle_raw);
+            }
+            return NumericArray::from_slice(&handles);
         }
         NumericArray::from_slice(&[])
     })

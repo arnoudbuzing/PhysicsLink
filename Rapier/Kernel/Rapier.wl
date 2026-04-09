@@ -46,6 +46,7 @@ If[$rapierLib =!= $Failed,
   $iRapierAddColliderCylinder = Echo @ LibraryFunctionLoad[$rapierLib, "rapier_add_collider_cylinder", {Integer, Integer, Real, Real, Real}, Integer];
   $iRapierWorldStep = Echo @ LibraryFunctionLoad[$rapierLib, "rapier_world_step", {Integer, Integer, Real}, "Void"];
   $iRapierGetBodyPositions = Echo @ LibraryFunctionLoad[$rapierLib, "rapier_get_body_positions", {Integer}, {Real, 1}];
+  $iRapierGetBodyHandles = Echo @ LibraryFunctionLoad[$rapierLib, "rapier_get_body_handles", {Integer}, {Integer, 1}];
 
   RapierVersion[] := $iRapierVersion[];
   RapierCuboidMass[hx_?NumericQ, hy_?NumericQ, hz_?NumericQ, density_?NumericQ] := 
@@ -77,9 +78,10 @@ If[$rapierLib =!= $Failed,
     $iRapierWorldStep[worldId, steps, dt];
     
   RapierGetBodyPositions[worldId_Integer] := 
-    Module[{flat = $iRapierGetBodyPositions[worldId]},
-      If[Length[flat] > 0,
-        ArrayReshape[flat, {Length[flat]/8, 8}],
+    Module[{flatPoses = $iRapierGetBodyPositions[worldId], flatHandles = $iRapierGetBodyHandles[worldId], poses},
+      If[Length[flatPoses] > 0 && Length[flatHandles] > 0,
+        poses = ArrayReshape[flatPoses, {Length[flatPoses]/7, 7}];
+        MapThread[Prepend[#1, #2] &, {poses, flatHandles}],
         {}
       ]
     ];
