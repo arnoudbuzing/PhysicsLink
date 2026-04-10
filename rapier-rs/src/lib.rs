@@ -354,3 +354,24 @@ fn rapier_get_body_handles(world_id: i64) -> NumericArray<i64> {
         NumericArray::from_slice(&[])
     })
 }
+
+#[wll::export]
+fn rapier_set_body_linvel(
+    world_id: i64,
+    body_handle_raw: i64,
+    vx: f64, vy: f64, vz: f64,
+) -> bool {
+    WORLDS.with(|w| {
+        let mut worlds = w.borrow_mut();
+        if let Some(world) = worlds.get_mut(&(world_id as usize)) {
+            let index = (body_handle_raw >> 32) as u32;
+            let gen = (body_handle_raw & 0xFFFFFFFF) as u32;
+            let body_handle = RigidBodyHandle::from_raw_parts(index, gen);
+            if let Some(rb) = world.rigid_body_set.get_mut(body_handle) {
+                rb.set_linvel(vector![vx as f32, vy as f32, vz as f32], true);
+                return true;
+            }
+        }
+        false
+    })
+}

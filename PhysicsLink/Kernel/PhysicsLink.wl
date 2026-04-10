@@ -11,6 +11,7 @@ RapierAddColliderCylinder::usage = "RapierAddColliderCylinder[world_id, body_id,
 RapierAddColliderCone::usage = "RapierAddColliderCone[world_id, body_id, {halfHeight, radius}, density] adds a conical collider attached to the body.";
 RapierAddColliderCapsule::usage = "RapierAddColliderCapsule[world_id, body_id, {halfHeight, radius}, density] adds a capsule collider attached to the body.";
 QuaternionToTransformation::usage = "QuaternionToTransformation[{qx, qy, qz, qw}] converts a quaternion to a 3x3 rotation matrix.";
+RapierSetBodyVelocity::usage = "RapierSetBodyVelocity[world_id, body_id, {vx,vy,vz}] sets the linear velocity of a rigid body.";
 RapierWorldStep::usage = "RapierWorldStep[world_id, steps, dt] advances the simulation.";
 RapierGetBodyPositions::usage = "RapierGetBodyPositions[world_id] returns all body positions and rotations as a matrix.";
 
@@ -69,6 +70,7 @@ If[$physicsLinkLib =!= $Failed,
   $iRapierWorldStep = LibraryFunctionLoad[$physicsLinkLib, "rapier_world_step", {Integer, Integer, Real}, "Void"];
   $iRapierGetBodyPositions = LibraryFunctionLoad[$physicsLinkLib, "rapier_get_body_positions", {Integer}, {Real, 1}];
   $iRapierGetBodyHandles = LibraryFunctionLoad[$physicsLinkLib, "rapier_get_body_handles", {Integer}, {Integer, 1}];
+  $iRapierSetBodyLinvel = LibraryFunctionLoad[$physicsLinkLib, "rapier_set_body_linvel", {Integer, Integer, Real, Real, Real}, "Boolean"];
 
   RapierVersion[] := $iRapierVersion[];
   RapierCuboidMass[hx_?NumericQ, hy_?NumericQ, hz_?NumericQ, density_?NumericQ] := 
@@ -105,6 +107,9 @@ If[$physicsLinkLib =!= $Failed,
   RapierWorldStep[worldId_Integer, steps_Integer, dt_?NumericQ] := 
     $iRapierWorldStep[worldId, steps, dt];
     
+  RapierSetBodyVelocity[worldId_Integer, bodyId_Integer, {vx_?NumericQ, vy_?NumericQ, vz_?NumericQ}] :=
+    $iRapierSetBodyLinvel[worldId, bodyId, vx, vy, vz];
+
   RapierGetBodyPositions[worldId_Integer] := 
     Module[{flatPoses = $iRapierGetBodyPositions[worldId], flatHandles = $iRapierGetBodyHandles[worldId], poses},
       If[Length[flatPoses] > 0 && Length[flatHandles] > 0,
@@ -239,10 +244,10 @@ separateDirectivesAndPrimitive[prim_] := {{}, prim};
 
 (* Multiple bare arguments: wrap into a list so directives get separated properly *)
 createBody[worldId_Integer, DynamicBody[args__, opts:OptionsPattern[]]] :=
-  iCreateBody[worldId, {args}, "Dynamic", {opts}] /; !MatchQ[{args}, {_List | _Sphere | _Cuboid | _Cylinder | _Cone | _CapsuleShape}];
+  iCreateBody[worldId, {args}, "Dynamic", {opts}] /; !MatchQ[{args}, {_List | _Sphere | _Cuboid | _Cylinder | _Cone | _CapsuleShape}] && FreeQ[{args}, _Rule | _RuleDelayed];
 
 createBody[worldId_Integer, FixedBody[args__, opts:OptionsPattern[]]] :=
-  iCreateBody[worldId, {args}, "Fixed", {opts}] /; !MatchQ[{args}, {_List | _Sphere | _Cuboid | _Cylinder | _Cone | _CapsuleShape}];
+  iCreateBody[worldId, {args}, "Fixed", {opts}] /; !MatchQ[{args}, {_List | _Sphere | _Cuboid | _Cylinder | _Cone | _CapsuleShape}] && FreeQ[{args}, _Rule | _RuleDelayed];
 
 createBody[worldId_Integer, DynamicBody[prim_, opts___]] :=
   iCreateBody[worldId, prim, "Dynamic", {opts}];
@@ -252,7 +257,7 @@ createBody[worldId_Integer, FixedBody[prim_, opts___]] :=
 
 iCreateBody[worldId_Integer, prim_, bodyType_String, opts_List] :=
   Module[{separated, directives, actualPrim, info, center, shapeParams, intrinsicRot, userRot, combinedRot, quat,
-          density, handle, colliderHandle, shapeType},
+          density, velocity, handle, colliderHandle, shapeType},
     separated = separateDirectivesAndPrimitive[prim];
     If[separated === $Failed, Return[$Failed]];
     {directives, actualPrim} = separated;
@@ -269,6 +274,7 @@ iCreateBody[worldId_Integer, prim_, bodyType_String, opts_List] :=
     density = N["Density" /. opts /. {"Density" -> 1.0}];
     userRot = "Orientation" /. opts /. {"Orientation" -> IdentityMatrix[3]};
     userRot = N[userRot];
+    velocity = "Velocity" /. opts /. {"Velocity" -> None};
 
     (* Combined rotation: user rotation composed with intrinsic rotation *)
     combinedRot = userRot . intrinsicRot;
@@ -276,6 +282,11 @@ iCreateBody[worldId_Integer, prim_, bodyType_String, opts_List] :=
 
     (* Add rigid body *)
     handle = RapierAddRigidBody[worldId, center, quat, bodyType];
+
+    (* Set initial velocity if specified *)
+    If[ListQ[velocity] && Length[velocity] == 3,
+      RapierSetBodyVelocity[worldId, handle, N[velocity]]
+    ];
 
     (* Add collider based on shape type *)
     colliderHandle = Switch[shapeType,
