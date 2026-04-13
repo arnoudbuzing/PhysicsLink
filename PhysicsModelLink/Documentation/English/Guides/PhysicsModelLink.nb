@@ -1,0 +1,367 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Wolfram 15.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       154,          7]
+NotebookDataLength[     13676,        357]
+NotebookOptionsPosition[      9827,        274]
+NotebookOutlinePosition[     10360,        292]
+CellTagsIndexPosition[     10317,        289]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["PhysicsModelLink", "GuideTitle",
+ CellID->1873605848,ExpressionUUID->"f5d3058d-7326-40b5-9292-b850f50b3765"],
+
+Cell["\<\
+Rigid body physics simulation and visualization for standard Wolfram Language \
+3D primitives\
+\>", "GuideAbstract",
+ CellChangeTimes->{3.9850088844516697`*^9},
+ CellID->1140771375,ExpressionUUID->"b5301255-55ee-420d-922a-6911f5d03663"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["", "GuideFunctionsSection",
+ CellID->210499209,ExpressionUUID->"644f69ca-379d-490a-bbb8-29e8bb418071"],
+
+Cell[TextData[{
+ Cell[BoxData[
+  ButtonBox["CreatePhysicsModel",
+   BaseStyle->"Link",
+   ButtonData->
+    "paclet:ArnoudBuzing/PhysicsModelLink/ref/CreatePhysicsModel"]], 
+  "InlineGuideFunction",
+  TaggingRules->{"PageType" -> "Function"},
+  CellTags->"c40ac8e4-27e1-4161-a8df-4d4f38357a23",ExpressionUUID->
+  "e7f50d27-04a6-445d-a845-d4d3ff32a483"],
+ " \[LongDash] creates a physics model from fixed and dynamic objects and \
+returns a ",
+ Cell[BoxData[
+  ButtonBox["PhysicsModelObject",
+   BaseStyle->"Link",
+   ButtonData->
+    "paclet:ArnoudBuzing/PhysicsModelLink/ref/PhysicsModelObject"]], 
+  "InlineFormula",ExpressionUUID->"f7504a80-67da-4652-b696-c1668e62352f"]
+}], "GuideText",
+ CellChangeTimes->{{3.9850088886699553`*^9, 3.9850088922300034`*^9}, {
+  3.985009052383404*^9, 3.9850090990489893`*^9}, {3.98501110149798*^9, 
+  3.985011101498001*^9}},
+ CellID->954639054,ExpressionUUID->"c522bc32-b3df-43ef-a730-49cdc7d5e807"],
+
+Cell[TextData[{
+ Cell[BoxData[
+  ButtonBox["PhysicsModelObject",
+   BaseStyle->"Link",
+   ButtonData->
+    "paclet:ArnoudBuzing/PhysicsModelLink/ref/PhysicsModelObject"]], 
+  "InlineGuideFunction",
+  TaggingRules->{"PageType" -> "Function"},
+  CellTags->"3bfb644b-a296-4c62-aa34-cd4d65d2313c",ExpressionUUID->
+  "3cbdca59-4434-4ed9-a870-803fe06c9b82"],
+ " \[LongDash] complete current state of a physics model, include object \
+velocities and rotational velocities"
+}], "GuideText",
+ CellChangeTimes->{{3.985009043288842*^9, 3.985009050096652*^9}, {
+  3.98500911712633*^9, 3.985009163181446*^9}, {3.9850111050962543`*^9, 
+  3.9850111050962687`*^9}},
+ CellID->970658981,ExpressionUUID->"84c6eebc-4862-4447-9d72-790cdf8c2a10"],
+
+Cell[TextData[{
+ Cell[BoxData[
+  ButtonBox["PhysicsModelPlot",
+   BaseStyle->"Link",
+   ButtonData->"paclet:ArnoudBuzing/PhysicsModelLink/ref/PhysicsModelPlot"]], 
+  "InlineGuideFunction",
+  TaggingRules->{"PageType" -> "Function"},
+  CellTags->"c5c6736a-1ff4-4e4e-8fcf-2d9846cbae62",ExpressionUUID->
+  "11290d8f-50b1-4b16-a5b8-ae8a6ede900b"],
+ " \[LongDash] plot a PhysicsModelObject in its current state"
+}], "GuideText",
+ CellChangeTimes->{{3.985008914714363*^9, 3.9850089184701767`*^9}, {
+  3.9850091670296803`*^9, 3.9850091800998077`*^9}, {3.985011108937728*^9, 
+  3.985011108937742*^9}},
+ CellID->768253841,ExpressionUUID->"66874942-6cb5-4d51-8029-16293f6f19db"],
+
+Cell[TextData[{
+ Cell[BoxData[
+  ButtonBox["PhysicsModelIterate",
+   BaseStyle->"Link",
+   ButtonData->
+    "paclet:ArnoudBuzing/PhysicsModelLink/ref/PhysicsModelIterate"]], 
+  "InlineGuideFunction",
+  TaggingRules->{"PageType" -> "Function"},
+  CellTags->"3bfb644b-a296-4c62-aa34-cd4d65d2313c",ExpressionUUID->
+  "09787d11-6ebf-4314-bad8-f0bd981a9f99"],
+ " \[LongDash] iterate a physics model for a number of steps and return the \
+current state"
+}], "GuideText",
+ CellChangeTimes->{{3.985008933254416*^9, 3.985008936947706*^9}, {
+  3.985009192141913*^9, 3.9850092103617268`*^9}, {3.985011113796633*^9, 
+  3.985011113796647*^9}},
+ CellID->2073117141,ExpressionUUID->"50f416c2-b722-4b7b-8f63-e15bb03cc205"],
+
+Cell[TextData[{
+ Cell[BoxData[
+  ButtonBox["PhysicsModelEvolve",
+   BaseStyle->"Link",
+   ButtonData->
+    "paclet:ArnoudBuzing/PhysicsModelLink/ref/PhysicsModelEvolve"]], 
+  "InlineGuideFunction",
+  TaggingRules->{"PageType" -> "Function"},
+  CellTags->"3bfb644b-a296-4c62-aa34-cd4d65d2313c",ExpressionUUID->
+  "5899e486-3e53-4a10-98de-2435d2c225f2"],
+ " \[LongDash] evolve a physics model for a number of steps and return all \
+intermediate states"
+}], "GuideText",
+ CellChangeTimes->{{3.985008942179372*^9, 3.985008945673394*^9}, {
+  3.985009213731153*^9, 3.985009234771652*^9}, {3.9850111178713284`*^9, 
+  3.9850111178713417`*^9}},
+ CellID->735561456,ExpressionUUID->"1f6dfdda-2a6b-4caf-a475-d6f947d44f74"],
+
+Cell[CellGroupData[{
+
+Cell["\t", "GuideDelimiter",
+ CellID->1370619923,ExpressionUUID->"6c7be39b-f6c2-4b0d-b74e-39435399ca4b"],
+
+Cell[TextData[{
+ Cell[BoxData[
+  ButtonBox["FixedBody",
+   BaseStyle->"Link",
+   ButtonData->"paclet:ArnoudBuzing/PhysicsModelLink/ref/FixedBody"]], 
+  "InlineGuideFunction",
+  TaggingRules->{"PageType" -> "Function"},ExpressionUUID->
+  "4702a125-a241-42a6-940e-7ed9258d17c4"],
+ StyleBox[" \[FilledVerySmallSquare] ", "InlineSeparator"],
+ Cell[BoxData[
+  ButtonBox["DynamicBody",
+   BaseStyle->"Link",
+   ButtonData->"paclet:ArnoudBuzing/PhysicsModelLink/ref/DynamicBody"]], 
+  "InlineGuideFunction",
+  TaggingRules->{"PageType" -> "Function"},
+  CellTags->"0582cfbd-c253-4ace-ad51-26d13b3078cb",ExpressionUUID->
+  "0f3870a2-ae69-4ddd-a921-0e57139f609c"],
+ Cell[BoxData[
+  RowBox[{
+  Cell[TextData[StyleBox[
+   " \[FilledVerySmallSquare] ", "InlineSeparator"]],ExpressionUUID->
+    "703caffc-8778-4c86-8900-b1f23d483dee"], 
+   DynamicModuleBox[{$CellContext`nbobj$$ = NotebookObject[
+    "e785c397-00e4-4a35-8406-335b3b4b710c", 
+     "7e020fad-3b20-4423-9cd9-5d740a6091df"], $CellContext`cellobj$$ = 
+    CellObject[
+    "a07b99e7-75cf-455d-8e6c-b2e54f90b3e0", 
+     "7322f478-7c01-43f7-a27f-b99350dc28fd"]}, 
+    TemplateBox[{
+      GraphicsBox[{{
+         Thickness[0.06], 
+         StrokeForm[
+          Hue[0.4167, 0.406, 0.502]], 
+         CircleBox[{0, 0}]}, {
+         Thickness[0.06], 
+         StrokeForm[
+          Hue[0.4167, 0.406, 0.502]], 
+         LineBox[{{0, 0.62}, {0, -0.62}}]}, {
+         Thickness[0.06], 
+         StrokeForm[
+          Hue[0.4167, 0.406, 0.502]], 
+         LineBox[{{-0.62, 0}, {0.62, 0}}]}}, 
+       ImagePadding -> {{1., 1.}, {2.4, 1.}}, ImageSize -> 16, 
+       PlotRange -> {{-1.06, 1.06}, {-1.06, 1.06}}, 
+       BaselinePosition -> (Center -> 
+        Center)], $CellContext`nbobj$$, $CellContext`cellobj$$},
+     "InlineListingAddButton"],
+    Initialization:>($CellContext`nbobj$$ = 
+      EvaluationNotebook[]; $CellContext`cellobj$$ = EvaluationCell[])]}]], 
+  "InlineListingAddButton",ExpressionUUID->
+  "a07b99e7-75cf-455d-8e6c-b2e54f90b3e0"]
+}], "InlineGuideFunctionListing",
+ CellChangeTimes->{{3.985008956913857*^9, 3.98500896525214*^9}, {
+  3.98501112078043*^9, 3.9850111246132917`*^9}},
+ CellID->2099448139,ExpressionUUID->"fe3f7fae-81c8-40b9-947a-13ba1e5d5bad"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Tech Notes", "GuideTutorialsSection",
+ CellID->121068316,ExpressionUUID->"52dfde01-05cc-4512-9bd4-bf8d692e9cae"],
+
+Cell["XXXX", "GuideTutorial",
+ CellID->1128173303,ExpressionUUID->"7a568101-1cde-46a8-8e30-9273560b71cf"],
+
+Cell["XXXX", "GuideTutorial",
+ CellID->1075584158,ExpressionUUID->"05effcd6-21fd-4838-8be3-6f5efc95c12e"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Related Guides", "GuideMoreAboutSection",
+ CellChangeTimes->{{3.8430423939366693`*^9, 3.843042395176153*^9}},
+ CellID->1973086707,ExpressionUUID->"de785f5d-1370-4783-b7cf-aede136b2eb9"],
+
+Cell["XXXX", "GuideMoreAbout",
+ CellID->225807575,ExpressionUUID->"06d73486-b180-4ddb-90be-a4495977f700"],
+
+Cell["XXXX", "GuideMoreAbout",
+ CellID->544308776,ExpressionUUID->"18e5fea2-015d-4585-aa78-b2938565c03c"]
+}, Open  ]],
+
+Cell["Related Links", "GuideRelatedLinksSection",
+ CellID->2064745659,ExpressionUUID->"c5fbaac4-5ead-4fd0-9e00-ecb1c75ba54c"],
+
+Cell[CellGroupData[{
+
+Cell["Metadata", "MetadataSection",
+ CellID->992038940,ExpressionUUID->"9290e8ad-8841-448a-b5b4-6c904f383456"],
+
+Cell[TextData[{
+ "New in: ",
+ Cell["XX", "HistoryData",
+  CellTags->"New",ExpressionUUID->"a6ba45cc-b54a-4ba2-bbbe-6510976c36c1"],
+ " | Modified in: ",
+ Cell[" ", "HistoryData",
+  CellTags->"Modified",ExpressionUUID->"e68e24b8-56ed-4a31-b022-7e19092da1d7"],
+ " | Obsolete in: ",
+ Cell[" ", "HistoryData",
+  CellTags->"Obsolete",ExpressionUUID->
+  "6d6651d5-bf5c-4772-bde5-0957fe52e014"]
+}], "History",
+ CellID->135429272,ExpressionUUID->"e21acb3b-1727-4d8d-a24e-5a6867004b41"],
+
+Cell[CellGroupData[{
+
+Cell["Categorization", "CategorizationSection",
+ CellID->1974592331,ExpressionUUID->"412efcc7-7c71-4614-aa75-e79106cda176"],
+
+Cell["Guide", "Categorization",
+ CellLabel->"Entity Type",
+ CellID->1908510026,ExpressionUUID->"0ab1d571-757b-4158-abd9-d5316e202bd1"],
+
+Cell["ArnoudBuzing/PhysicsModelLink", "Categorization",
+ CellLabel->"Paclet Name",
+ CellID->1512255390,ExpressionUUID->"678de5de-e60f-426d-89c4-05079b3160a3"],
+
+Cell["ArnoudBuzing`PhysicsModelLink`", "Categorization",
+ CellLabel->"Context",
+ CellID->1007377485,ExpressionUUID->"494a6324-7029-43f1-bb2c-e009085759f4"],
+
+Cell["ArnoudBuzing/PhysicsModelLink/guide/PhysicsModelLink", "Categorization",
+ CellLabel->"URI",
+ CellID->232317447,ExpressionUUID->"74ee50f4-73b3-4d7b-851c-00758d4fb9ed"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Keywords", "KeywordsSection",
+ CellID->434061483,ExpressionUUID->"ef2f99c9-6ae8-4c68-9004-449e17b2f8b8"],
+
+Cell["XXXX", "Keywords",
+ CellID->269395922,ExpressionUUID->"28e019d4-2639-45b8-9a17-bf176f36e069"]
+}, Closed]]
+}, Open  ]]
+},
+WindowSize->{701, 771},
+WindowMargins->{{Automatic, 377}, {41, Automatic}},
+TaggingRules-><|"Paclet" -> "ArnoudBuzing/PhysicsModelLink"|>,
+FrontEndVersion->"15.0 for Mac OS X ARM (64-bit) (April 9, 2026)",
+StyleDefinitions->FrontEnd`FileName[{"Wolfram"}, "GuidePageStylesExt.nb", 
+  CharacterEncoding -> "UTF-8"],
+ExpressionUUID->"e785c397-00e4-4a35-8406-335b3b4b710c"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[576, 22, 114, 1, 86, "GuideTitle",ExpressionUUID->"f5d3058d-7326-40b5-9292-b850f50b3765",
+ CellID->1873605848],
+Cell[693, 25, 246, 5, 28, "GuideAbstract",ExpressionUUID->"b5301255-55ee-420d-922a-6911f5d03663",
+ CellID->1140771375]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[976, 35, 108, 1, 71, "GuideFunctionsSection",ExpressionUUID->"644f69ca-379d-490a-bbb8-29e8bb418071",
+ CellID->210499209],
+Cell[1087, 38, 933, 22, 39, "GuideText",ExpressionUUID->"c522bc32-b3df-43ef-a730-49cdc7d5e807",
+ CellID->954639054],
+Cell[2023, 62, 724, 16, 40, "GuideText",ExpressionUUID->"84c6eebc-4862-4447-9d72-790cdf8c2a10",
+ CellID->970658981],
+Cell[2750, 80, 668, 14, 24, "GuideText",ExpressionUUID->"66874942-6cb5-4d51-8029-16293f6f19db",
+ CellID->768253841],
+Cell[3421, 96, 706, 16, 40, "GuideText",ExpressionUUID->"50f416c2-b722-4b7b-8f63-e15bb03cc205",
+ CellID->2073117141],
+Cell[4130, 114, 710, 16, 40, "GuideText",ExpressionUUID->"1f6dfdda-2a6b-4caf-a475-d6f947d44f74",
+ CellID->735561456],
+Cell[CellGroupData[{
+Cell[4865, 134, 104, 1, 26, "GuideDelimiter",ExpressionUUID->"6c7be39b-f6c2-4b0d-b74e-39435399ca4b",
+ CellID->1370619923],
+Cell[4972, 137, 2218, 54, 24, "InlineGuideFunctionListing",ExpressionUUID->"fe3f7fae-81c8-40b9-947a-13ba1e5d5bad",
+ CellID->2099448139]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[7239, 197, 118, 1, 73, "GuideTutorialsSection",ExpressionUUID->"52dfde01-05cc-4512-9bd4-bf8d692e9cae",
+ CellID->121068316],
+Cell[7360, 200, 105, 1, 23, "GuideTutorial",ExpressionUUID->"7a568101-1cde-46a8-8e30-9273560b71cf",
+ CellID->1128173303],
+Cell[7468, 203, 105, 1, 23, "GuideTutorial",ExpressionUUID->"05effcd6-21fd-4838-8be3-6f5efc95c12e",
+ CellID->1075584158]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[7610, 209, 191, 2, 73, "GuideMoreAboutSection",ExpressionUUID->"de785f5d-1370-4783-b7cf-aede136b2eb9",
+ CellID->1973086707],
+Cell[7804, 213, 105, 1, 23, "GuideMoreAbout",ExpressionUUID->"06d73486-b180-4ddb-90be-a4495977f700",
+ CellID->225807575],
+Cell[7912, 216, 105, 1, 23, "GuideMoreAbout",ExpressionUUID->"18e5fea2-015d-4585-aa78-b2938565c03c",
+ CellID->544308776]
+}, Open  ]],
+Cell[8032, 220, 125, 1, 73, "GuideRelatedLinksSection",ExpressionUUID->"c5fbaac4-5ead-4fd0-9e00-ecb1c75ba54c",
+ CellID->2064745659],
+Cell[CellGroupData[{
+Cell[8182, 225, 110, 1, 71, "MetadataSection",ExpressionUUID->"9290e8ad-8841-448a-b5b4-6c904f383456",
+ CellID->992038940],
+Cell[8295, 228, 476, 12, 25, "History",ExpressionUUID->"e21acb3b-1727-4d8d-a24e-5a6867004b41",
+ CellID->135429272],
+Cell[CellGroupData[{
+Cell[8796, 244, 123, 1, 20, "CategorizationSection",ExpressionUUID->"412efcc7-7c71-4614-aa75-e79106cda176",
+ CellID->1974592331],
+Cell[8922, 247, 134, 2, 70, "Categorization",ExpressionUUID->"0ab1d571-757b-4158-abd9-d5316e202bd1",
+ CellID->1908510026],
+Cell[9059, 251, 158, 2, 70, "Categorization",ExpressionUUID->"678de5de-e60f-426d-89c4-05079b3160a3",
+ CellID->1512255390],
+Cell[9220, 255, 155, 2, 70, "Categorization",ExpressionUUID->"494a6324-7029-43f1-bb2c-e009085759f4",
+ CellID->1007377485],
+Cell[9378, 259, 172, 2, 70, "Categorization",ExpressionUUID->"74ee50f4-73b3-4d7b-851c-00758d4fb9ed",
+ CellID->232317447]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[9587, 266, 110, 1, 20, "KeywordsSection",ExpressionUUID->"ef2f99c9-6ae8-4c68-9004-449e17b2f8b8",
+ CellID->434061483],
+Cell[9700, 269, 99, 1, 70, "Keywords",ExpressionUUID->"28e019d4-2639-45b8-9a17-bf176f36e069",
+ CellID->269395922]
+}, Closed]]
+}, Open  ]]
+}
+]
+*)
+
+(* End of internal cache information *)
+

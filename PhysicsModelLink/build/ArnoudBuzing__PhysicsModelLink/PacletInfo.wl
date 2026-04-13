@@ -28,11 +28,7 @@ PacletObject[
           "ArnoudBuzing`PhysicsModelLink`PhysicsModelVideo"
         }
       },
-      {
-        "Asset",
-        "Root" -> "LibraryResources",
-        "Target" -> "LibraryResources"
-      },
+      {"LibraryLink"},
       {"Documentation", "Language" -> "English"}
     }
   |>

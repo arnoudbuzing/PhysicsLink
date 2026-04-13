@@ -1,0 +1,410 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Wolfram 15.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       154,          7]
+NotebookDataLength[     15603,        401]
+NotebookOptionsPosition[     11916,        321]
+NotebookOutlinePosition[     14231,        379]
+CellTagsIndexPosition[     14146,        374]
+WindowTitle->PhysicsModelPlot
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+Cell[BoxData[GridBox[{
+   {GridBox[{
+      {
+       ItemBox[Cell[BoxData[
+         RowBox[{
+          TemplateBox[{12},
+           "Spacer1"], Cell[
+          "ARNOUD BUZING/ PHYSICS MODEL LINK SYMBOL", "PacletNameCell",
+           TextAlignment->Center,ExpressionUUID->
+           "44502ce2-3d7d-4f05-b6ce-7cdf8823728a"], 
+          TemplateBox[{8},
+           "Spacer1"]}]],
+         TextAlignment->Center,ExpressionUUID->
+         "eb86cb73-a0d9-47f2-a9c8-bb8039bddcc2"],
+        Background->LightDarkSwitched[
+          RGBColor[0.490196, 0.576471, 0.690196]],
+        ItemSize->Full], ""}
+     },
+     GridBoxAlignment->{"Rows" -> {{Center}}},
+     GridBoxItemSize->{"Columns" -> {Full, 
+         Scaled[0.02]}, "Rows" -> {{2.5}}}], Cell[TextData[Cell[BoxData[
+     TagBox[
+      ActionMenuBox[
+       FrameBox[Cell[TextData[{
+         "URL",
+         " ",
+         Cell[BoxData[
+          GraphicsBox[
+           {GrayLevel[0.66667], Thickness[0.13], 
+            LineBox[{{-1.8, 0.5}, {0, 0}, {1.8, 0.5}}]},
+           AspectRatio->1,
+           ImageSize->20,
+           PlotRange->{{-3, 4}, {-1, 1}}]],ExpressionUUID->
+          "e80cfeab-e7e7-4179-b5f2-1c53314d6a0a"]
+        }],ExpressionUUID->"8c11e5d1-e210-407f-80fa-a0ef7448aeea"],
+        StripOnInput->False],{
+       "\"ArnoudBuzing/PhysicsModelLink/ref/PhysicsModelPlot\"" :> None, 
+        "\"Copy Wolfram Documentation Center URL\"" :> 
+        CopyToClipboard["ArnoudBuzing/PhysicsModelLink/ref/PhysicsModelPlot"],
+         Delimiter, "\"Copy web URL\"" :> 
+        Module[{DocumentationSearch`Private`nb$}, 
+          DocumentationSearch`Private`nb$ = 
+           NotebookPut[
+            Notebook[{
+              Cell[BoxData[
+                MakeBoxes[
+                 Hyperlink[
+                  "http://reference.wolfram.com/language/ArnoudBuzing/\
+PhysicsModelLink/ref/PhysicsModelPlot.html"], StandardForm]], "Input", 
+                TextClipboardType -> "PlainText"]}, Visible -> False]]; 
+          SelectionMove[DocumentationSearch`Private`nb$, All, Notebook]; 
+          FrontEndTokenExecute[DocumentationSearch`Private`nb$, "Copy"]; 
+          NotebookClose[DocumentationSearch`Private`nb$]; Null], 
+        "\"Go to web URL\"" :> 
+        FrontEndExecute[{
+          NotebookLocate[{
+            URL[If[TrueQ[False], 
+                "http://reference.wolfram.com/system-modeler/", 
+                "http://reference.wolfram.com/language/"] <> 
+              "ArnoudBuzing/PhysicsModelLink/ref/PhysicsModelPlot" <> 
+              ".html"], None}]}]},
+       Appearance->None,
+       MenuAppearance->Automatic,
+       MenuStyle->"URLMenu"],
+      MouseAppearanceTag["LinkHand"]]],
+     LineSpacing->{1.4, 0},ExpressionUUID->
+     "3cedb210-b0b1-4c43-939f-dc46621558bf"]], "AnchorBar",
+     CacheGraphics->False,ExpressionUUID->
+     "ac0f212f-bcbf-4b75-b5a1-7c45b4a95032"]}
+  }]], "AnchorBarGrid",
+ GridBoxOptions->{GridBoxItemSize->{"Columns" -> {
+     Scaled[0.65], {
+      Scaled[0.34]}}, "ColumnsIndexed" -> {}, "Rows" -> {{1.}}, 
+   "RowsIndexed" -> {}}},
+ CellID->1,ExpressionUUID->"2202e4a7-7834-484a-a806-ba8b8905d15c"],
+
+Cell["ArnoudBuzing`PhysicsModelLink`", "ContextNameCell",ExpressionUUID->"ab52dc7c-0357-4277-95e1-ebf29247fc30"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[GridBox[{
+   {Cell[TextData[{
+     Cell[
+     "PhysicsModelPlot", "ObjectName",ExpressionUUID->
+      "e5ba814b-d887-475b-a314-05d95b9c2a16"],
+     Cell[BoxData[
+      TemplateBox[{8},
+       "Spacer1"]],ExpressionUUID->"2a0080c6-a70d-48ed-b384-eee3118150a6"],
+     Cell[BoxData[
+     ""], "ObjectNameTranslation",ExpressionUUID->
+      "1d5658d9-9664-40b1-a4ce-8d46039a6b6e"]
+    }],ExpressionUUID->"2b7d1fb0-87f1-4b52-bc37-3e4af0146cef"], 
+    "\[SpanFromLeft]"}
+  }]], "ObjectNameGrid",ExpressionUUID->"3064a78f-114e-459b-bcd3-\
+61970a23b7a2"],
+
+Cell[BoxData[GridBox[{
+   {"", Cell[TextData[{
+     Cell[BoxData[
+      RowBox[{
+       TemplateBox[{
+         Cell[
+          TextData["PhysicsModelPlot"]], 
+         "paclet:ArnoudBuzingPhysicsModelLink/ref/PhysicsModelPlot", 
+         "ArnoudBuzingPhysicsModelLink Package Symbol"},
+        "PackageLink",
+        BaseStyle->"InlineFormula"], "[", 
+       StyleBox["model", "TI"], "]"}]], "InlineFormula",
+      FontFamily->"Source Sans Pro",ExpressionUUID->
+      "42b148e9-e821-4189-8621-78875d5712b8"],
+     "\[LineSeparator]renders a ",
+     Cell[BoxData[
+      TemplateBox[{
+        Cell[
+         TextData["PhysicsModelObject"]], 
+        "paclet:ArnoudBuzing/PhysicsModelLink/ref/PhysicsModelObject", 
+        "ArnoudBuzing Package Symbol"},
+       "PackageLink",
+       BaseStyle->"InlineFormula"]], "InlineFormula",
+      FontFamily->"Source Sans Pro",ExpressionUUID->
+      "49981662-937e-4f3f-897c-ed3a72ceb0d0"],
+     " as a ",
+     Cell[BoxData[
+      TemplateBox[{
+        Cell[
+         TextData["Graphics3D"]], "paclet:ref/Graphics3D"},
+       "RefLink",
+       BaseStyle->{"InlineFormula"}]], "InlineFormula",
+      FontFamily->"Source Sans Pro",ExpressionUUID->
+      "315c0f80-d096-4daa-861e-1566023cce59"],
+     " scene."
+    }],ExpressionUUID->"0d7aebc6-ec03-47ba-a74f-07431ace8fba"]}
+  }]], "Usage",
+ CellID->337792974,ExpressionUUID->"16e3197a-1438-41f6-bf4c-fd911d376688"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[TextData[Cell[BoxData[
+ ButtonBox[Cell[TextData[{
+   Cell[BoxData[
+    DynamicBox[ToBoxes[
+      If[CurrentValue[
+         EvaluationCell[], "CellGroupOpen"] =!= Closed, 
+       Style[
+        Graphics[{
+          Thickness[0.18], 
+          RGBColor[0.8509803921568627, 0.396078431372549, 0], 
+          Line[{{-1.8, 0.5}, {0, 0}, {1.8, 0.5}}]}, AspectRatio -> 1, 
+         PlotRange -> {{-3, 4}, {-1, 1}}, ImageSize -> 20], Magnification -> 
+        0.68 Inherited], 
+       Rotate[
+        Style[
+         Graphics[{
+           Thickness[0.18], 
+           RGBColor[0.8509803921568627, 0.396078431372549, 0], 
+           Line[{{-1.8, 0.5}, {0, 0}, {1.8, 0.5}}]}, AspectRatio -> 1, 
+          PlotRange -> {{-3, 4}, {-1, 1}}, ImageSize -> 20], Magnification -> 
+         0.68 Inherited], Rational[1, 2] Pi, {-1.65, -1}]]]]],ExpressionUUID->
+    "1bcf61e3-8379-4bf5-ae07-b2005ad2b59b"],
+   Cell[BoxData[
+    TemplateBox[{1},
+     "Spacer1"]],ExpressionUUID->"6c86a9ba-abc3-4d6f-b8f3-262643338e49"],
+   "Details and Options"
+  }], "NotesFrameText",ExpressionUUID->"56863285-a10c-4e49-8be8-c457c6756cae"],
+  Appearance->{Automatic, None, "Normal", Automatic},
+  BaseStyle->None,
+  ButtonFunction:>(FrontEndExecute[{
+     FrontEnd`SelectionMove[
+      FrontEnd`SelectedNotebook[], All, ButtonCell], 
+     FrontEndToken["OpenCloseGroup"], 
+     FrontEnd`SelectionMove[
+      FrontEnd`SelectedNotebook[], After, CellContents]}]& ),
+  Evaluator->None,
+  Method->
+   "Preemptive"]],ExpressionUUID->"a519d9f7-0aa8-40a2-9a11-a2a611a485e8"]], \
+"NotesSection",
+ ShowGroupOpener->"Thumbnail",
+ WholeCellGroupOpener->True,
+ CellGroupingRules->{"SectionGrouping", 50},
+ CacheGraphics->False,
+ CellID->1386196541,ExpressionUUID->"279ffbd4-c1bf-4e92-a1d7-787bc3c746c1"],
+
+Cell["The following options can be given: ", "Notes",
+ CellID->1487234997,ExpressionUUID->"0038b4e6-5cbf-4f2e-8009-7bb47be4675c"],
+
+Cell[BoxData[GridBox[{
+   {Cell["      ", "TableRowIcon",ExpressionUUID->
+     "ef998d64-250b-489a-bcf3-766211a1c606"], 
+    TemplateBox[{
+      Cell[
+       TextData["PlotRange"]], "paclet:ref/PlotRange"},
+     "RefLink",
+     BaseStyle->{"3ColumnTableMod"}], 
+    TemplateBox[{
+      Cell[
+       TextData["Automatic"]], "paclet:ref/Automatic"},
+     "RefLink",
+     BaseStyle->{"3ColumnTableMod"}], Cell["\<\
+PlotRange is an option for graphics functions that specifies what range of \
+coordinates to include in a plot. \
+\>", "TableText",ExpressionUUID->"99f3c776-2f27-44c3-b6c1-0363c4f8875e"]},
+   {Cell["      ", "TableRowIcon",ExpressionUUID->
+     "359f42c1-9a01-492e-9985-49c18be4ffde"], 
+    TemplateBox[{
+      Cell[
+       TextData["Axes"]], "paclet:ref/Axes"},
+     "RefLink",
+     BaseStyle->{"3ColumnTableMod"}], 
+    TemplateBox[{
+      Cell[
+       TextData["False"]], "paclet:ref/False"},
+     "RefLink",
+     BaseStyle->{"3ColumnTableMod"}], Cell["\<\
+Axes is an option for graphics functions that specifies whether axes should \
+be drawn. \
+\>", "TableText",ExpressionUUID->"4a1f3165-b229-4b11-9dfc-85e30f544d05"]},
+   {Cell["      ", "TableRowIcon",ExpressionUUID->
+     "dbbef611-1e09-4f54-8319-070622f6d669"], 
+    TemplateBox[{
+      Cell[
+       TextData["Boxed"]], "paclet:ref/Boxed"},
+     "RefLink",
+     BaseStyle->{"3ColumnTableMod"}], 
+    TemplateBox[{
+      Cell[
+       TextData["False"]], "paclet:ref/False"},
+     "RefLink",
+     BaseStyle->{"3ColumnTableMod"}], Cell[TextData[{
+     "Boxed is an option for ",
+     Cell[BoxData[
+      TemplateBox[{
+        Cell[
+         TextData["Graphics3D"]], "paclet:ref/Graphics3D"},
+       "RefLink",
+       BaseStyle->{"3ColumnTableMod"}]], "InlineFormula",
+      FontFamily->"Source Sans Pro",ExpressionUUID->
+      "9a7c442e-0418-428c-8f73-1b7410ebc69c"],
+     " that specifies whether to draw the edges of the bounding box in a \
+three\[Hyphen]dimensional picture. "
+    }], "TableText",ExpressionUUID->"dc15489c-d57a-4667-996a-613a6af21b23"]}
+  }]], "3ColumnTableMod",
+ GridBoxOptions->{
+ GridBoxBackground->{"Columns" -> {{None}}, "Rows" -> {None, None, {None}}},
+ GridBoxDividers->{"Rows" -> {{True, True, True, True}}}},
+ CellID->1396427146,ExpressionUUID->"6c21c30e-e373-4cde-8c78-44dc95f31696"]
+}, Dynamic[CurrentValue[
+ EvaluationNotebook[], {TaggingRules, "Openers", "NotesSection"}, Closed]]]],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+ Cell[BoxData[
+  DynamicBox[ToBoxes[
+    If[
+     MatchQ[
+      CurrentValue[
+       EvaluationNotebook[], {
+       TaggingRules, "Openers", "PrimaryExamplesSection"}, Open], 
+      Alternatives[True, Open]], 
+     Style[
+      Graphics[{
+        Thickness[0.18], 
+        RGBColor[0.8509803921568627, 0.396078431372549, 0], 
+        Line[{{-1.8, 0.5}, {0, 0}, {1.8, 0.5}}]}, AspectRatio -> 1, 
+       PlotRange -> {{-3, 4}, {-1, 1}}, ImageSize -> 20], Magnification -> 
+      0.68 Inherited], 
+     Rotate[
+      Style[
+       Graphics[{
+         Thickness[0.18], 
+         RGBColor[0.8509803921568627, 0.396078431372549, 0], 
+         Line[{{-1.8, 0.5}, {0, 0}, {1.8, 0.5}}]}, AspectRatio -> 1, 
+        PlotRange -> {{-3, 4}, {-1, 1}}, ImageSize -> 20], Magnification -> 
+       0.68 Inherited], Rational[1, 2] Pi, {-1.65, -1}]]]]],ExpressionUUID->
+  "f62d6300-eb8b-4bb9-80a9-47af9efb298d"],
+ Cell[BoxData[
+  TemplateBox[{1},
+   "Spacer1"]],ExpressionUUID->"6b9ab7d1-c6ef-4a8c-809e-cccf61a2b1ad"],
+ "Examples",
+ "\[NonBreakingSpace]\[NonBreakingSpace]",
+ Cell["(0)", "ExampleCount",ExpressionUUID->
+  "5257707b-3c58-422f-ae9b-8da324baad6e"]
+}], "PrimaryExamplesSection",
+ WholeCellGroupOpener->True,
+ CacheGraphics->False,
+ CellTags->"PrimaryExamplesSection",
+ CellID->1902661931,ExpressionUUID->"12431289-1177-4d46-bdb2-8f9debb77921"],
+
+Cell[BoxData[
+ RowBox[{"Needs", "[", "\"\<ArnoudBuzing`PhysicsModelLink`\>\"", 
+  "]"}]], "Input", "ExampleInitialization",
+ CellLabel->"In[1]:=",
+ CellID->139854663,ExpressionUUID->"b7047375-ee45-45d2-ab05-6640989579a0"]
+}, Dynamic[CurrentValue[
+ EvaluationNotebook[], {TaggingRules, "Openers", "PrimaryExamplesSection"}, 
+  Closed]]]],
+
+Cell[" ", "FooterCell",ExpressionUUID->"678aa572-4204-4eff-9344-72677606553c"]
+},
+Saveable->False,
+ScreenStyleEnvironment->"Working",
+WindowSize->{900, 830},
+WindowMargins->{{0, Automatic}, {Automatic, 0}},
+WindowTitle->"PhysicsModelPlot",
+Visible->True,
+TaggingRules->{
+ "ModificationHighlight" -> False, "ColorType" -> "", "LinkTrails" -> "", 
+  "ExampleCounter" -> 1, 
+  "Openers" -> {
+   "PrimaryExamplesSection" -> Open, "ExampleSection" -> {"0" -> Open}, 
+    "AllOptsTable" -> Closed, "NotesSection" -> Closed}, "NewStyles" -> True, 
+  "CitationPopupData" -> $Failed, "ShowCitation" -> False, "HasOptions" -> 
+  True, "RootCaptions" -> "", "HeaderCoreAreaLink" -> {}, 
+  "Metadata" -> {
+   "built" -> "{2026, 4, 12, 14, 7, 15.763474}", 
+    "history" -> {"XX", "", "", ""}, "context" -> 
+    "ArnoudBuzing`PhysicsModelLink`", "keywords" -> {}, 
+    "specialkeywords" -> {}, "tutorialcollectionlinks" -> {}, "index" -> True,
+     "label" -> "Arnoud Buzing/ Physics Model Link Symbol", "language" -> 
+    "en", "paclet" -> "ArnoudBuzing/PhysicsModelLink", "status" -> "None", 
+    "summary" -> 
+    "PhysicsModelPlot[model] renders a PhysicsModelObject as a Graphics3D \
+scene.", "synonyms" -> {}, "tabletags" -> {}, "title" -> "PhysicsModelPlot", 
+    "titlemodifier" -> "", "metadescription" -> "", "windowtitle" -> 
+    "PhysicsModelPlot", "type" -> "Symbol", "uri" -> 
+    "ArnoudBuzing/PhysicsModelLink/ref/PhysicsModelPlot"}},
+CellContext->"Global`",
+FrontEndVersion->"15.0 for Mac OS X ARM (64-bit) (April 9, 2026)",
+StyleDefinitions->Notebook[{
+   Cell[
+    StyleData[
+    StyleDefinitions -> FrontEnd`FileName[{"Wolfram"}, "Reference.nb"]]], 
+   Cell[
+    StyleData["Input"], CellContext -> "Global`"], 
+   Cell[
+    StyleData["Output"], CellContext -> "Global`"]}, Visible -> False, 
+  FrontEndVersion -> "15.0 for Mac OS X ARM (64-bit) (April 9, 2026)", 
+  StyleDefinitions -> "PrivateStylesheetFormatting.nb"],
+ExpressionUUID->"8988ff61-8b63-4d6e-a69d-a35f399b1ced"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{
+ "PrimaryExamplesSection"->{
+  Cell[10138, 272, 1354, 36, 70, "PrimaryExamplesSection",ExpressionUUID->"12431289-1177-4d46-bdb2-8f9debb77921",
+   CellTags->"PrimaryExamplesSection",
+   CellID->1902661931]}
+ }
+*)
+(*CellTagsIndex
+CellTagsIndex->{
+ {"PrimaryExamplesSection", 13945, 367}
+ }
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[584, 21, 3113, 74, 70, "AnchorBarGrid",ExpressionUUID->"2202e4a7-7834-484a-a806-ba8b8905d15c",
+ CellID->1],
+Cell[3700, 97, 112, 0, 70, "ContextNameCell",ExpressionUUID->"ab52dc7c-0357-4277-95e1-ebf29247fc30"],
+Cell[CellGroupData[{
+Cell[3837, 101, 559, 14, 70, "ObjectNameGrid",ExpressionUUID->"3064a78f-114e-459b-bcd3-61970a23b7a2"],
+Cell[4399, 117, 1399, 37, 70, "Usage",ExpressionUUID->"16e3197a-1438-41f6-bf4c-fd911d376688",
+ CellID->337792974]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[5835, 159, 1760, 43, 70, "NotesSection",ExpressionUUID->"279ffbd4-c1bf-4e92-a1d7-787bc3c746c1",
+ CellGroupingRules->{"SectionGrouping", 50},
+ CellID->1386196541],
+Cell[7598, 204, 129, 1, 70, "Notes",ExpressionUUID->"0038b4e6-5cbf-4f2e-8009-7bb47be4675c",
+ CellID->1487234997],
+Cell[7730, 207, 2281, 59, 70, "3ColumnTableMod",ExpressionUUID->"6c21c30e-e373-4cde-8c78-44dc95f31696",
+ CellID->1396427146]
+}, Dynamic[CurrentValue[EvaluationNotebook[], {TaggingRules, "Openers", "NotesSection"}, Closed]]]],
+Cell[CellGroupData[{
+Cell[10138, 272, 1354, 36, 70, "PrimaryExamplesSection",ExpressionUUID->"12431289-1177-4d46-bdb2-8f9debb77921",
+ CellTags->"PrimaryExamplesSection",
+ CellID->1902661931],
+Cell[11495, 310, 221, 4, 70, "Input",ExpressionUUID->"b7047375-ee45-45d2-ab05-6640989579a0",
+ CellID->139854663]
+}, Dynamic[CurrentValue[EvaluationNotebook[], {TaggingRules, "Openers", "PrimaryExamplesSection"}, Closed]]]],
+Cell[11834, 319, 78, 0, 70, "FooterCell",ExpressionUUID->"678aa572-4204-4eff-9344-72677606553c"]
+}
+]
+*)
+
+(* End of internal cache information *)
