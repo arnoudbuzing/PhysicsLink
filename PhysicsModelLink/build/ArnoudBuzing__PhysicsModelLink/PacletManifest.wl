@@ -11,7 +11,7 @@
             ,
             "Hash"
             ->
-            "b96a0ad2aaacc9f65f83d21b21ec502659778ac41a910fef1db1e22901847096"
+            "d3fc3c04f5f21e3d03cbc7c7b709af6cbd94147f0fc6c099a314fbb5260a4b34"
                 
         |>
         ,
@@ -87,6 +87,20 @@
             "File"
             ->
             File[
+                "Documentation/English/ReferencePages/Symbols/PhysicsModelAnimate.nb"
+                    
+            ]
+            ,
+            "Hash"
+            ->
+            "a896ff1d5a428cdc6e7394d77fa9676d8bf39bab30a94f1134b8539f63ee88b5"
+                
+        |>
+        ,
+        <|
+            "File"
+            ->
+            File[
                 "Documentation/English/ReferencePages/Symbols/PhysicsModelEvolve.nb"
                     
             ]
@@ -149,7 +163,7 @@
             ,
             "Hash"
             ->
-            "bbebe987df3ccd05f46239381851cbde6e2e7c524cf45b8d62a8602b76f91512"
+            "d91708f43e4a4c91a1ae47f4a2e7bb6ec50f70e2838a1970a0d31303ca493f41"
                 
         |>
     }

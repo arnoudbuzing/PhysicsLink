@@ -318,6 +318,33 @@ iCreateBody[worldId_Integer, prim_, bodyType_String, opts_List] :=
     |>
   ];
 
+(* --- computePlotRange: bounding box of all bodies with padding --- *)
+bodyBoundingBox[body_Association] :=
+  Module[{pos, shapeType, params, r},
+    pos = body["Position"];
+    shapeType = body["ShapeType"];
+    params = body["ShapeParams"];
+    r = Switch[shapeType,
+      "Sphere", params[[1]] * {1, 1, 1},
+      "Cuboid", params[[1]],
+      "Cylinder", {params[[2]], params[[2]], params[[1]] + params[[2]]},
+      "Cone", {params[[2]], params[[2]], params[[1]] + params[[2]]},
+      "Capsule", {params[[2]], params[[2]], params[[1]] + params[[2]]},
+      _, {1, 1, 1}
+    ];
+    {pos - r, pos + r}
+  ];
+
+computePlotRange[bodies_List, padding_: 1.05] :=
+  Module[{bounds, mins, maxs, centers, halfWidths},
+    bounds = bodyBoundingBox /@ bodies;
+    mins = Min /@ Transpose[bounds[[All, 1]]];
+    maxs = Max /@ Transpose[bounds[[All, 2]]];
+    centers = (mins + maxs) / 2;
+    halfWidths = (maxs - mins) / 2 * padding;
+    Transpose[{centers - halfWidths, centers + halfWidths}]
+  ];
+
 (* --- CreatePhysicsModel --- *)
 Options[CreatePhysicsModel] = {"Gravity" -> {0, 0, -9.81}, "Graphics3DOptions" -> {}};
 
@@ -333,6 +360,11 @@ CreatePhysicsModel[bodies_List, opts:OptionsPattern[]] :=
       {body, flatBodies}
     ];
     bodyData = Select[bodyData, AssociationQ];
+
+    (* Auto-compute PlotRange if not specified by user *)
+    If[FreeQ[g3dOpts, PlotRange] && Length[bodyData] > 0,
+      g3dOpts = Append[g3dOpts, PlotRange -> computePlotRange[bodyData]]
+    ];
 
     Module[{model, icon},
       model = PhysicsModelObject[<|
@@ -542,7 +574,7 @@ PhysicsModelEvolve[model_PhysicsModelObject, frames_Integer, dt_?NumericQ] :=
   ];
 
 (* --- PhysicsModelVideo --- *)
-Options[PhysicsModelVideo] = {PlotRange -> {{-4.1, 4.1}, {-4.1, 4.1}, {-1.1, 5.1}}};
+Options[PhysicsModelVideo] = {PlotRange -> Automatic};
 
 PhysicsModelVideo[frames_List, opts:OptionsPattern[]] :=
   Module[{plotOpts},
@@ -554,7 +586,7 @@ PhysicsModelVideo[frames_List, opts:OptionsPattern[]] :=
   ];
 
 (* --- PhysicsModelAnimate --- *)
-Options[PhysicsModelAnimate] = {PlotRange -> {{-4.1, 4.1}, {-4.1, 4.1}, {-1.1, 5.1}}, AnimationRate -> 60};
+Options[PhysicsModelAnimate] = {PlotRange -> Automatic, AnimationRate -> 60};
 
 PhysicsModelAnimate[frames_List, opts:OptionsPattern[]] :=
   Module[{plotOpts, animOpts, renderedFrames},
