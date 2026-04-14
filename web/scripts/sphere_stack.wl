@@ -2,7 +2,7 @@
 
 projectDir = DirectoryName[$InputFileName, 3];
 PacletDirectoryLoad[FileNameJoin[{projectDir, "PhysicsModelLink"}]];
-Needs["PhysicsModelLink`"];
+Needs["ArnoudBuzing`PhysicsModelLink`"];
 
 Print["Generating sphere stack video..."];
 
