@@ -254,7 +254,13 @@ separateDirectivesAndPrimitive[prim_] := {{}, prim};
 createBody[worldId_Integer, DynamicBody[prim_List, opts___]] :=
   iCreateBody[worldId, prim, "Dynamic", {opts}];
 
+createBody[worldId_Integer, DynamicBody[prim_, opts___]] :=
+  iCreateBody[worldId, prim, "Dynamic", {opts}];
+
 createBody[worldId_Integer, FixedBody[prim_List, opts___]] :=
+  iCreateBody[worldId, prim, "Fixed", {opts}];
+
+createBody[worldId_Integer, FixedBody[prim_, opts___]] :=
   iCreateBody[worldId, prim, "Fixed", {opts}];
 
 iCreateBody[worldId_Integer, prim_, bodyType_String, opts_List] :=
