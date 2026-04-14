@@ -6,7 +6,7 @@ VerificationTest[
 ]
 
 VerificationTest[
-  Needs["PhysicsModelLink`"],
+  Needs["ArnoudBuzing`PhysicsModelLink`"],
   Null,
   TestID -> "NeedsPhysicsModelLink-Bounce"
 ]

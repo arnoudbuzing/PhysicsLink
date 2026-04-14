@@ -314,6 +314,50 @@ fn rapier_add_collider_capsule(
 }
 
 #[wll::export]
+fn rapier_add_collider_convex_hull(
+    world_id: i64,
+    body_handle_raw: i64,
+    points_flat: &NumericArray<f64>,
+    density: f64,
+    restitution: f64,
+    friction: f64
+) -> i64 {
+    WORLDS.with(|w| {
+        let mut worlds = w.borrow_mut();
+        if let Some(world) = worlds.get_mut(&(world_id as usize)) {
+            let pts_slice = points_flat.as_slice();
+            let mut points = Vec::with_capacity(pts_slice.len() / 3);
+            for chunk in pts_slice.chunks_exact(3) {
+                points.push(rapier3d::math::Point::new(chunk[0] as f32, chunk[1] as f32, chunk[2] as f32));
+            }
+            if let Some(collider_builder) = ColliderBuilder::convex_hull(&points) {
+                let collider = collider_builder
+                    .density(density as f32)
+                    .restitution(restitution as f32)
+                    .friction(friction as f32)
+                    .build();
+
+                let handle = if body_handle_raw == -1 {
+                    world.collider_set.insert(collider)
+                } else {
+                    let index = (body_handle_raw >> 32) as u32;
+                    let gen = (body_handle_raw & 0xFFFFFFFF) as u32;
+                    let body_handle = RigidBodyHandle::from_raw_parts(index, gen);
+                    world.collider_set.insert_with_parent(
+                        collider, body_handle, &mut world.rigid_body_set
+                    )
+                };
+                let (index, gen) = handle.into_raw_parts();
+                return ((index as i64) << 32) | (gen as i64);
+            } else {
+                return -1; // Failed to build convex hull
+            }
+        }
+        -1
+    })
+}
+
+#[wll::export]
 fn rapier_world_step(world_id: i64, steps: i64, time_step: f64) {
     WORLDS.with(|w| {
         let mut worlds = w.borrow_mut();
