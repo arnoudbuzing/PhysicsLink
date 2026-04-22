@@ -263,16 +263,27 @@ extractPrimitiveInfo[CapsuleShape[{p1:{_?NumericQ, _?NumericQ, _?NumericQ}, p2:{
 (* ConvexHullMesh *)
 extractPrimitiveInfo[mesh_ /; BoundaryMeshRegionQ[mesh] || MeshRegionQ[mesh]] :=
   Module[{pts},
-    pts = MeshCoordinates[mesh];
+    pts = N[MeshCoordinates[mesh]];
     {Mean[pts], {"ConvexHull", pts}, IdentityMatrix[3]}
   ];
+
+(* Translate[ConvexHullMesh[...], offset] produces a TransformedRegion *)
+extractPrimitiveInfo[TransformedRegion[mesh_, tf_TransformationFunction]] :=
+  Module[{pts},
+    pts = N[tf /@ MeshCoordinates[mesh]];
+    {Mean[pts], {"ConvexHull", pts}, IdentityMatrix[3]}
+  ] /; BoundaryMeshRegionQ[mesh] || MeshRegionQ[mesh];
+
+(* --- Helper: recognise physics primitives including mesh regions --- *)
+physicsPrimitiveQ[x_] := MatchQ[x, _Sphere | _Cuboid | _Cylinder | _Cone | _CapsuleShape] ||
+  BoundaryMeshRegionQ[x] || MeshRegionQ[x] || MatchQ[x, _TransformedRegion];
 
 (* --- createBody: register a single body+collider from a DynamicBody/FixedBody wrapper --- *)
 (* Extract graphics directives from a list like {Red, Opacity[.5], Cuboid[...]} *)
 separateDirectivesAndPrimitive[prim_List] :=
   Module[{directives, primitives},
-    directives = Select[prim, !MatchQ[#, _Sphere | _Cuboid | _Cylinder | _Cone | _CapsuleShape] &];
-    primitives = Select[prim, MatchQ[#, _Sphere | _Cuboid | _Cylinder | _Cone | _CapsuleShape] &];
+    directives = Select[prim, !physicsPrimitiveQ[#] &];
+    primitives = Select[prim, physicsPrimitiveQ];
     If[Length[primitives] =!= 1,
       Message[CreatePhysicsModel::badprim, Length[primitives]];
       Return[$Failed]
