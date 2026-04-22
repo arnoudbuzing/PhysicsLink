@@ -11,7 +11,7 @@
             ,
             "Hash"
             ->
-            "01c64b40f854414218bc6c06968cd351d3d1d469deb98e2e375ac38936aa53ab"
+            "dfebacb54979a62455010cfaa1427deeeea3546b816241dcfacb4d244c9091d3"
                 
         |>
         ,
@@ -25,6 +25,19 @@
             "Hash"
             ->
             "3e89e4749fa35e36033da65ae173d0d406734989c60fd128aa48c6a8e9752db1"
+                
+        |>
+        ,
+        <|
+            "File"
+            ->
+            File[
+                "LibraryResources/Windows-x86-64/rapier_rs.dll"
+            ]
+            ,
+            "Hash"
+            ->
+            "1a9b9e2f36e7277367261d2108e0f9fc7200648d41e131cffba184e9c9239d09"
                 
         |>
         ,
@@ -51,7 +64,7 @@
             ,
             "Hash"
             ->
-            "0a29ca104ae29edd1a9c3f3d6c534e9d2e4e76d845b636730737f9b64a2f1104"
+            "646c07dc5794540b50f7957d4f4a2fac01fc75eb753d56470e99207588a64076"
                 
         |>
         ,
@@ -65,7 +78,7 @@
             ,
             "Hash"
             ->
-            "ba552b3b72c650d8864f9fd3bc4d8fd600b9fe97d83c486cc9e2c118367b3983"
+            "fc0eca5d7dfb5ce67b650b4418926584548190c64cd201aa7ead35a80cd92f84"
                 
         |>
         ,
@@ -79,7 +92,7 @@
             ,
             "Hash"
             ->
-            "2bd08ae579ef09588a86ffb25fb00ac6e949d91a7427d66dce7ea1191dee53ba"
+            "16ccc337a214d86a8e426f717862004fb542e7bf494801e26d777f09e110ed33"
                 
         |>
         ,
@@ -93,7 +106,7 @@
             ,
             "Hash"
             ->
-            "a896ff1d5a428cdc6e7394d77fa9676d8bf39bab30a94f1134b8539f63ee88b5"
+            "27cbebf562d306626cd60bd1475d8f5c749c710eebaddb91a32912bd0dce4ba1"
                 
         |>
         ,
@@ -107,7 +120,7 @@
             ,
             "Hash"
             ->
-            "b13ccb834f5dbd7b9d5b646d04f6284f3351d102df387c14cfcdba34ef5bfbbb"
+            "a536fc666b07fa376be1983870cce1efd8a482cac4538446611e844db545065f"
                 
         |>
         ,
@@ -121,7 +134,7 @@
             ,
             "Hash"
             ->
-            "cdbca07d463ce598c808fc3e297a16223c0266a434ccfa4b9736f84d4ad7831d"
+            "b582ba180069bf1dcf4f95260760565585d14b660eb1db5806242eb20aa47bf8"
                 
         |>
         ,
@@ -135,7 +148,7 @@
             ,
             "Hash"
             ->
-            "c4c1097f7743d02b4efc5dfdd350cf5218479d259ea1a8da7ca606188d3cc5df"
+            "2fd97ad0439bfbcabfa6855cbde700caca38244c96295a9052e0c7a0412fea37"
                 
         |>
         ,
@@ -149,7 +162,7 @@
             ,
             "Hash"
             ->
-            "65e6ec6c57813dc5559bceb3181debc0de28713a652a82d58ebd7f9268907a4b"
+            "a0534df6e874ba07659a16df55b7fd025071d55d4ca80acfd98fe4bd2576be01"
                 
         |>
         ,
@@ -163,7 +176,7 @@
             ,
             "Hash"
             ->
-            "d91708f43e4a4c91a1ae47f4a2e7bb6ec50f70e2838a1970a0d31303ca493f41"
+            "abab136005f9542cbb113fc382f200bd3ebf01ad1ae66f7ab05a075e9af77610"
                 
         |>
     }
