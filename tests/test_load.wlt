@@ -12,7 +12,7 @@ VerificationTest[
 ]
 
 VerificationTest[
-  StringQ[PhysicsModelLink`RapierVersion[]],
+  StringQ[RapierVersion[]],
   True,
   TestID -> "RapierVersionCall"
 ]

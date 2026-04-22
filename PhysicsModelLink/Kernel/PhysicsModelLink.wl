@@ -14,6 +14,23 @@ PhysicsModelAnimate::usage = "PhysicsModelAnimate[frames] creates a ListAnimate 
 PhysicsModelEvolve::usage = "PhysicsModelEvolve[model, frames, dt] evolves the model for the given number of frames at time step dt, returning a list of PhysicsModelObject states.";
 PhysicsBoundaryBox::usage = "PhysicsBoundaryBox[{{xmin,ymin,zmin},{xmax,ymax,zmax}}] returns a list of FixedBody walls enclosing the given region. Use inside CreatePhysicsModel.";
 
+RapierVersion::usage = "RapierVersion[] returns the version of the underlying Rapier library.";
+RapierCuboidMass::usage = "RapierCuboidMass[hx, hy, hz, density] returns the mass of a cuboid with half-extents hx, hy, hz and given density.";
+RapierWorldCreate::usage = "RapierWorldCreate[{gx, gy, gz}] creates a new physics world with gravity vector {gx, gy, gz}. Returns a world ID.";
+RapierWorldDestroy::usage = "RapierWorldDestroy[worldId] destroys a physics world and frees its resources.";
+RapierAddRigidBody::usage = "RapierAddRigidBody[worldId, pos, quat, type] adds a rigid body to the world.";
+RapierAddColliderCuboid::usage = "RapierAddColliderCuboid[worldId, bodyId, dims, density, restitution, friction] adds a cuboid collider to a body.";
+RapierAddColliderSphere::usage = "RapierAddColliderSphere[worldId, bodyId, radius, density, restitution, friction] adds a sphere collider to a body.";
+RapierAddColliderCylinder::usage = "RapierAddColliderCylinder[worldId, bodyId, {hh, r}, density, restitution, friction] adds a cylinder collider to a body.";
+RapierAddColliderCone::usage = "RapierAddColliderCone[worldId, bodyId, {hh, r}, density, restitution, friction] adds a cone collider to a body.";
+RapierAddColliderCapsule::usage = "RapierAddColliderCapsule[worldId, bodyId, {hh, r}, density, restitution, friction] adds a capsule collider to a body.";
+RapierAddColliderConvexHull::usage = "RapierAddColliderConvexHull[worldId, bodyId, points, density, restitution, friction] adds a convex hull collider from a list of points.";
+RapierWorldStep::usage = "RapierWorldStep[worldId, steps, dt] advances the physics world.";
+RapierGetBodyPositions::usage = "RapierGetBodyPositions[worldId] returns the current positions and rotations of all bodies in the world.";
+RapierGetBodyHandles::usage = "RapierGetBodyHandles[worldId] returns the handles of all bodies in the world.";
+RapierSetBodyVelocity::usage = "RapierSetBodyVelocity[worldId, bodyId, vel] sets the linear velocity of a body.";
+QuaternionToTransformation::usage = "QuaternionToTransformation[quat] converts a {qx, qy, qz, qw} quaternion to a 3x3 rotation matrix.";
+
 CreatePhysicsModel::libnotfound = "Rapier library not found at `1`.";
 CreatePhysicsModel::badprim = "Expected exactly one graphics primitive, found `1`.";
 CreatePhysicsModel::unsupported = "Unsupported primitive `1`.";
@@ -59,6 +76,7 @@ If[$physicsLinkLib =!= $Failed,
   $iRapierAddColliderCylinder = LibraryFunctionLoad[$physicsLinkLib, "rapier_add_collider_cylinder", {Integer, Integer, Real, Real, Real, Real, Real}, Integer];
   $iRapierAddColliderCone = LibraryFunctionLoad[$physicsLinkLib, "rapier_add_collider_cone", {Integer, Integer, Real, Real, Real, Real, Real}, Integer];
   $iRapierAddColliderCapsule = LibraryFunctionLoad[$physicsLinkLib, "rapier_add_collider_capsule", {Integer, Integer, Real, Real, Real, Real, Real}, Integer];
+  $iRapierAddColliderConvexHull = LibraryFunctionLoad[$physicsLinkLib, "rapier_add_collider_convex_hull", {Integer, Integer, {Real, 1}, Real, Real, Real}, Integer];
   $iRapierWorldStep = LibraryFunctionLoad[$physicsLinkLib, "rapier_world_step", {Integer, Integer, Real}, "Void"];
   $iRapierGetBodyPositions = LibraryFunctionLoad[$physicsLinkLib, "rapier_get_body_positions", {Integer}, {Real, 1}];
   $iRapierGetBodyHandles = LibraryFunctionLoad[$physicsLinkLib, "rapier_get_body_handles", {Integer}, {Integer, 1}];
@@ -97,6 +115,9 @@ If[$physicsLinkLib =!= $Failed,
   RapierAddColliderCapsule[worldId_Integer, bodyId_Integer, {halfHeight_?NumericQ, radius_?NumericQ}, density_?NumericQ, restitution_?NumericQ, friction_?NumericQ] :=
     $iRapierAddColliderCapsule[worldId, bodyId, halfHeight, radius, density, restitution, friction];
 
+  RapierAddColliderConvexHull[worldId_Integer, bodyId_Integer, points:{{_?NumericQ, _?NumericQ, _?NumericQ}..}, density_?NumericQ, restitution_?NumericQ, friction_?NumericQ] :=
+    $iRapierAddColliderConvexHull[worldId, bodyId, Flatten[N[points]], density, restitution, friction];
+
   (* Backward-compatible overloads: default restitution=0.5, friction=0.5 *)
   RapierAddColliderCuboid[worldId_Integer, bodyId_Integer, dims:{_?NumericQ, _?NumericQ, _?NumericQ}, density_?NumericQ] :=
     RapierAddColliderCuboid[worldId, bodyId, dims, density, 0.5, 0.5];
@@ -112,6 +133,9 @@ If[$physicsLinkLib =!= $Failed,
 
   RapierAddColliderCapsule[worldId_Integer, bodyId_Integer, dims:{_?NumericQ, _?NumericQ}, density_?NumericQ] :=
     RapierAddColliderCapsule[worldId, bodyId, dims, density, 0.5, 0.5];
+
+  RapierAddColliderConvexHull[worldId_Integer, bodyId_Integer, points:{{_?NumericQ, _?NumericQ, _?NumericQ}..}, density_?NumericQ] :=
+    RapierAddColliderConvexHull[worldId, bodyId, points, density, 0.5, 0.5];
 
   RapierWorldStep[worldId_Integer, steps_Integer, dt_?NumericQ] := 
     $iRapierWorldStep[worldId, steps, dt];
@@ -233,7 +257,14 @@ extractPrimitiveInfo[CapsuleShape[{p1:{_?NumericQ, _?NumericQ, _?NumericQ}, p2:{
     axis = N[p2 - p1];
     halfHeight = Norm[axis] / 2.0;
     rot = rotationFromAxisToY[axis];
-    {center, {"Capsule", halfHeight, N[r]}, rot}
+    {center, {"Capsule", halfHeight, N[radius]}, rot}
+  ];
+
+(* ConvexHullMesh *)
+extractPrimitiveInfo[mesh_ /; BoundaryMeshRegionQ[mesh] || MeshRegionQ[mesh]] :=
+  Module[{pts},
+    pts = MeshCoordinates[mesh];
+    {Mean[pts], {"ConvexHull", pts}, IdentityMatrix[3]}
   ];
 
 (* --- createBody: register a single body+collider from a DynamicBody/FixedBody wrapper --- *)
@@ -309,7 +340,9 @@ iCreateBody[worldId_Integer, prim_, bodyType_String, opts_List] :=
       "Cone",
         RapierAddColliderCone[worldId, handle, {shapeParams[[2]], shapeParams[[3]]}, density, restitution, friction],
       "Capsule",
-        RapierAddColliderCapsule[worldId, handle, {shapeParams[[2]], shapeParams[[3]]}, density, restitution, friction]
+        RapierAddColliderCapsule[worldId, handle, {shapeParams[[2]], shapeParams[[3]]}, density, restitution, friction],
+      "ConvexHull",
+        RapierAddColliderConvexHull[worldId, handle, shapeParams[[2]], density, restitution, friction]
     ];
 
     <|
@@ -330,6 +363,9 @@ bodyBoundingBox[body_Association] :=
     pos = body["Position"];
     shapeType = body["ShapeType"];
     params = body["ShapeParams"];
+    If[shapeType === "ConvexHull",
+      Return[{Min /@ Transpose[params[[1]]], Max /@ Transpose[params[[1]]]}];
+    ];
     r = Switch[shapeType,
       "Sphere", params[[1]] * {1, 1, 1},
       "Cuboid", params[[1]],
@@ -480,6 +516,11 @@ bodyToGraphics[body_Association] :=
       "Capsule",
         Module[{hh = params[[1]], r = params[[2]]},
           CapsuleShape[{{0, -hh, 0}, {0, hh, 0}}, r]
+        ],
+      "ConvexHull",
+        Module[{pts = params[[1]], center},
+          center = Mean[pts];
+          MeshRegion[# - center & /@ pts, MeshCells[ConvexHullMesh[pts], 2]]
         ]
     ]
   ];
