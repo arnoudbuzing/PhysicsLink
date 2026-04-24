@@ -7,7 +7,7 @@ PacletObject[
     "Creator" -> "Arnoud Buzing",
     "License" -> "MIT",
     "PublisherID" -> "ArnoudBuzing",
-    "Version" -> "1.0.2",
+    "Version" -> "1.0.3",
     "WolframVersion" -> "14.1+",
     "PrimaryContext" -> "ArnoudBuzing`PhysicsModelLink`",
     "Extensions" -> {

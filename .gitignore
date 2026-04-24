@@ -1,3 +1,4 @@
 rapier-rs/target
 .DS_Store
-PhysicsModelLink/build
+PhysicsModelLink/build/*
+!PhysicsModelLink/build/*.paclet
